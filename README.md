@@ -87,10 +87,4 @@ SECRET=1234567890 #<Your-super-secret-key>
 
 - `npm run coverage` - Runs Jest's coverage report
 
-# Contributing
 
-Contributions are welcome! Please submit a pull request or open an issue.
-
-# License
-
-This project is licensed under the MIT License.
