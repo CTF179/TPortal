@@ -39,7 +39,7 @@ cd Tportal
 ## Create AWS resources
 Create an IAM user, and configure your keys for access. 
 
-Create two tables on Dynamodb: Users, and Tickets
+Create two tables on Dynamodb: Users, and Tickets with Primary Key as `pkey`;
 
 ## Create Environment Variables
 ``` bash
