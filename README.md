@@ -36,6 +36,11 @@ git clone https://github.com/CTF179/TPortal.git
 cd Tportal
 
 ```
+## Create AWS resources
+Create an IAM user, and configure your keys for access. 
+
+Create two tables on Dynamodb: Users, and Tickets
+
 ## Create Environment Variables
 ``` bash
 touch .env
@@ -45,7 +50,9 @@ Please fill in the following values.
 PORT=3000 #<Your-Port>
 HOST=127.0.0.1 #<Your-Host-address>
 SECRET=1234567890 #<Your-super-secret-key>
-
+AWS_ACCESS_KEY_ID=1234567890 #<Your-AWS-ACCESS-KEY>
+AWS_DEFAULT_REGION=us-region-1 #<Your-AWS-REGION>
+AWS_SECRET_ACCESS_KEY=1234567890 #<Your-AWS-SECRET-KEY>
 ```
 ## Install dependencies
 ``` powershell 
