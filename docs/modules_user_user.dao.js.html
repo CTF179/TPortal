@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Source: modules/user/user.dao.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: modules/user/user.dao.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const { logger } &#x3D; require(&quot;../../utils/logging.js&quot;);
+const { User } &#x3D; require(&quot;./user.model.js&quot;);
+const { GetCommand, PutCommand, ScanCommand, UpdateCommand } &#x3D; require(&quot;@aws-sdk/lib-dynamodb&quot;);
+
+/**
+ * Repository class for managing user-related database operations.
+ * Interacts with the DynamoDB table for user records.
+ * @class UserRepository
+ */
+class UserRepository {
+  /**
+   * Creates an instance of UserRepository.
+   */
+  constructor() {
+    this.tableName &#x3D; &quot;Users&quot;;
+    this.dbConnector &#x3D; require(&quot;../../utils/dbconnector.js&quot;);
+  }
+
+  /**
+   * Retrieves a user by either partition key (&#x60;pkey&#x60;) or username.
+   * @param {Object} lookupObject - The object containing search criteria.
+   * @param {string | number} [lookupObject.pkey] - The unique identifier (UUID or integer) for the user.
+   * @param {string} [lookupObject.username] - The username to search for.
+   * @returns {User | undefined} - The user object if found, otherwise undefined.
+   */
+  async get(lookupObject) {
+    let command;
+    if (lookupObject.pkey) {
+      command &#x3D; new GetCommand({
+        TableName: this.tableName,
+        Key: { pkey: lookupObject.pkey }
+      });
+      try {
+        const data &#x3D; await this.dbConnector.send(command);
+        const user &#x3D; data.Item;
+        Object.setPrototypeOf(user, User);
+        return user;
+      } catch (error) {
+        logger.error(error);
+        return null;
+      }
+    }
+    if (lookupObject.username) {
+      command &#x3D; new ScanCommand({
+        TableName: this.tableName,
+        FilterExpression: &quot;#usern&#x3D;:username&quot;,
+        ExpressionAttributeNames: { &quot;#usern&quot;: &quot;username&quot; },
+        ExpressionAttributeValues: { &quot;:username&quot;: lookupObject.username }
+      });
+
+      try {
+        const data &#x3D; await this.dbConnector.send(command);
+        const user &#x3D; data.Items[0];
+        Object.setPrototypeOf(user, User);
+        return user;
+      } catch (error) {
+        logger.error(error);
+        return null;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Retrieves all users from the database.
+   * @returns {Promise&amp;lt;User[]&gt;} - An array of User objects.
+   */
+  async read() {
+    let command &#x3D; new ScanCommand({
+      TableName: this.tableName,
+    });
+    try {
+      const data &#x3D; await this.dbConnector.send(command);
+      return data.Items;
+    } catch (error) {
+      logger.error(error);
+      return null;
+    }
+  }
+
+  /**
+   * Creates a new user in the database.
+   * @param {User} userObject - The user data to be saved.
+   * @returns {User | null} - The created user object if successful, otherwise null.
+   */
+  async create(userObject) {
+    const user &#x3D; new User(userObject);
+    const command &#x3D; new PutCommand({
+      TableName: this.tableName,
+      Item: {
+        ...user
+      },
+      ReturnValues: &quot;ALL_OLD&quot;
+    });
+    try {
+      await this.dbConnector.send(command);
+      return user;
+    } catch (error) {
+      logger.error(error);
+      return null;
+    }
+  }
+
+  /**
+   * Deletes a user from the database.
+   * Currently not implemented.
+   * @param {Object} lookupObject - The object containing the &#x60;pkey&#x60; of the user to be deleted.
+   * @param {string | number} lookupObject.pkey - The unique identifier (UUID or integer) of the user.
+   * @returns {null} - Always returns null as delete functionality is not supported yet.
+   */
+  async delete(lookupObject) {
+    return null;
+  }
+
+  /**
+   * Updates a user&#x27;s attributes in the database.
+   * @param {Object} lookupObject - The object containing the &#x60;pkey&#x60; of the user to update.
+   * @param {Array&amp;lt;Object&gt;} updateObjects - Array of objects containing &#x60;property&#x60; and &#x60;value&#x60; for each attribute to update.
+   * @param {string} updateObjects[].property - The property of the user to update.
+   * @param {string | number} updateObjects[].value - The new value for the property.
+   * @returns {Object | null} - The updated user attributes if successful, otherwise null.
+   */
+  async update(lookupObject, updateObjects) {
+    let expression &#x3D; &quot;set &quot;;
+    let attributeNames &#x3D; {};
+    let attributeValues &#x3D; {};
+    for (let i &#x3D; 0, l &#x3D; updateObjects.length; i &amp;lt; l; i++) {
+      expression +&#x3D; &#x60;#${updateObjects[i].property}${i}&#x3D;:${updateObjects[i].property}${i}&#x60;;
+      attributeNames[&#x60;#${updateObjects[i].property}${i}&#x60;] &#x3D; &#x60;${updateObjects[i].property}&#x60;;
+      attributeValues[&#x60;:${updateObjects[i].property}${i}&#x60;] &#x3D; &#x60;${updateObjects[i].value}&#x60;;
+      if (i + 1 !&#x3D; l) {
+        expression +&#x3D; &quot;,&quot;;
+      }
+    }
+
+    const command &#x3D; new UpdateCommand({
+      TableName: this.tableName,
+      Key: { pkey: lookupObject.pkey },
+      UpdateExpression: expression,
+      ExpressionAttributeNames: attributeNames,
+      ExpressionAttributeValues: attributeValues,
+      ReturnValues: &quot;ALL_NEW&quot;,
+    });
+
+    try {
+      const response &#x3D; await this.dbConnector.send(command);
+      return response.Attributes;
+    } catch (error) {
+      logger.error(error);
+      return null;
+    }
+  }
+}
+
+module.exports &#x3D; UserRepository;
+
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

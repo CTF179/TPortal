@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
+    "docs": "jsdoc -r src/ -d docs -R README.md --template ./node_modules/jsdoc-baseline ",
     "start": "nodemon --env-file=.env src/index.js "
   },
   "dependencies": {
@@ -22,6 +23,8 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "jsdoc": "^4.0.4",
+    "jsdoc-baseline": "^0.1.5",
     "nodemon": "^3.1.9",
     "supertest": "^7.1.0",
     "winston": "^3.17.0"

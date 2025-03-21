@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Source: modules/user/user.controller.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: modules/user/user.controller.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const { logger } &#x3D; require(&quot;../../utils/logging.js&quot;);
+const express &#x3D; require(&quot;express&quot;);
+
+/**
+ * Controller class for managing user-related operations via HTTP requests.
+ */
+class UserController {
+  /**
+   * Creates a UserController instance.
+   * @param {Object} userService - The service instance for user operations.
+   */
+  constructor(userService) {
+    this.userService &#x3D; userService;
+    this.router &#x3D; express.Router();
+    this.initRoutes();
+  }
+
+  /**
+   * Initializes routes for user-related operations.
+   * @returns {void}
+   */
+  initRoutes() {
+    this.router.get(&quot;/&quot;, this.get.bind(this));
+    this.router.get(&quot;/:user_pkey&quot;, this.getUser.bind(this));
+    this.router.post(&quot;/&quot;, this.postUser.bind(this));
+    this.router.put(&quot;/:user_pkey&quot;, this.putUser.bind(this));
+    this.router.delete(&quot;/&quot;, this.deleteUser.bind(this));
+  }
+
+  /**
+   * Gets all users based on the role of the requesting admin.
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {Promise&amp;lt;void&gt;} Resolves to a response object.
+   */
+  async get(req, res) {
+    try {
+      const admin &#x3D; req.user;
+      if (!admin) {
+        return res.status(400).json({ message: &quot;Invalid User&quot; });
+      }
+
+      switch (admin.role) {
+        case &quot;manager&quot;:
+          const users &#x3D; await this.userService.read({});
+          if (!users) {
+            return res.status(400).json({ message: &quot;Invalid read&quot; });
+          }
+
+          return res.status(200).json({ message: &#x60;${admin.pkey} request&#x60;, users: users });
+
+        default:
+          return res.status(401).json({ message: &quot;Unauthorized&quot; });
+      }
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Read request failure&quot; });
+    }
+  }
+
+  /**
+   * Gets a specific user based on their user_pkey.
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {Promise&amp;lt;void&gt;} Resolves to a response object.
+   */
+  async getUser(req, res) {
+    try {
+      const user_pkey &#x3D; req.params.user_pkey;
+      if (!user_pkey) {
+        return res.status(400).json({ message: &quot;Invalid User Key&quot; });
+      }
+
+      const user &#x3D; await this.userService.get({ pkey: user_pkey });
+      if (!user) {
+        return res.status(400).json({ message: &quot;Invalid User&quot; });
+      }
+
+      const admin &#x3D; req.user;
+      switch (admin.role) {
+        case &quot;manager&quot;:
+          return res.status(200).json(user);
+
+        default:
+          return res.status(401).json({ message: &quot;Not Available&quot; });
+      }
+
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Get request failure&quot; });
+    }
+  }
+
+  /**
+   * Creates a new user.
+   * Only admin can create a user.
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {Promise&amp;lt;void&gt;} Resolves to a response object.
+   */
+  async postUser(req, res) {
+    try {
+      const data &#x3D; req.body;
+      if (!data) {
+        return res.status(400).json({ message: &quot;Invalid Object&quot; });
+      }
+
+      const createduser &#x3D; await this.userService.create(data);
+      if (!createduser) {
+        return res.status(400).json({ message: &quot;Invalid User&quot; });
+      }
+
+      return res.status(200).json({ message: &#x60;Created user:${createduser.pkey}&#x60;, user: { username: createduser.username, role: createduser.role } });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Creation request failure&quot; });
+    }
+  }
+
+  /**
+   * Updates a specific user’s attributes.
+   * Admin can update any user attribute.
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {Promise&amp;lt;void&gt;} Resolves to a response object.
+   */
+  async putUser(req, res) {
+    try {
+      const user_pkey &#x3D; req.params.user_pkey;
+      if (!user_pkey) {
+        return res.status(400).json({ message: &quot;Invalid User Key&quot; });
+      }
+
+      const admin &#x3D; req.user;
+      if (!admin) {
+        return res.status(400).json({ message: &quot;Invalid User&quot; });
+      }
+
+      switch (admin.role) {
+        case &quot;manager&quot;:
+          const payload &#x3D; req.body;
+          if (!payload) {
+            return res.status(400).json({ message: &quot;Invalid Object&quot; });
+          }
+
+          const updatedUser &#x3D; await this.userService.update({ pkey: user_pkey }, payload.updateObjects);
+          if (!updatedUser) {
+            return res.status(400).json({ message: &quot;Invalid Update&quot; });
+          }
+
+          return res.status(200).json({
+            message: &#x60;${updatedUser.username}:[${updatedUser.pkey}]; Updated by manager:[${admin.pkey}]&#x60;
+          });
+
+        default:
+          return res.status(401).json({ message: &quot;Unauthorized&quot; });
+      }
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Update request failure&quot; });
+    }
+  }
+
+  /**
+   * Deletes a user. Currently not supported.
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {Promise&amp;lt;void&gt;} Resolves to a response object.
+   */
+  async deleteUser(req, res) {
+    try {
+      return res.status(405).json({ message: &quot;Delete Not available&quot; });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Delete request failure&quot; });
+    }
+  }
+}
+
+module.exports &#x3D; UserController;
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

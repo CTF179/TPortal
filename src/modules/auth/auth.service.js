@@ -1,14 +1,23 @@
-const { isValidPassword } = require("../../utils/validator.js")
+const { isValidPassword } = require("../../utils/validator.js");
 
+/**
+ * Service for handling authentication operations.
+ */
 class AuthService {
+  /**
+   * Initializes the authentication service.
+   * @param {Object} authRepository - The authentication repository for handling auth-related operations.
+   */
   constructor(authRepository) {
     this.authRepository = authRepository;
   }
-  /* 
-    * Hash the user's password
-    * @param <User> UnverifiedUserObject
-    * @returns <User> UserWithHashedPassword
-    * */
+
+  /**
+   * Hashes a user's password.
+   * @param {Object} UnverifiedUserObject - The user object containing an unhashed password.
+   * @param {string} UnverifiedUserObject.password - The plaintext password.
+   * @returns {Promise<Object|undefined>} The user object with a hashed password, or undefined if invalid.
+   */
   async hashPassword(UnverifiedUserObject) {
     if (!UnverifiedUserObject?.password || !isValidPassword(UnverifiedUserObject.password)) {
       return undefined;
@@ -16,34 +25,35 @@ class AuthService {
     return await this.authRepository.hashPassword(UnverifiedUserObject);
   }
 
-  /* 
-    * 
-    * @param <User> dbUser
-    * @param <{password: string, username: string}> signInRequestUser
-    * @returns <boolean> isValid;
-    * */
+  /**
+   * Validates a user's password.
+   * @param {Object} dbUser - The stored user object containing the hashed password.
+   * @param {Object} signInData - The login request object.
+   * @param {string} signInData.password - The plaintext password to validate.
+   * @returns {Promise<boolean>} True if the password is valid, otherwise false.
+   */
   async validatePassword(dbUser, signInData) {
     return await this.authRepository.verify(dbUser.password, signInData.password);
   }
 
-  /* 
-    * Generate a token based on a user
-    * @param <User> UnverifiedUserObject
-    * @returns <Token> userToken
-    * */
+  /**
+   * Generates a token for a user.
+   * @param {Object} UnverifiedUserObject - The user object containing identity details.
+   * @returns {Promise<string>} A signed authentication token.
+   */
   async generateToken(UnverifiedUserObject) {
     return await this.authRepository.generateToken(UnverifiedUserObject);
   }
 
-  /*
-    * Decode a auth header
-    * @param <req.header.authorization:string> unverifiedAuthHeader
-    * @returns <{pkey:string, role:string}> userIdentifier
-    * */
+  /**
+   * Decodes an authentication token from the authorization header.
+   * @param {string} unverifiedAuthHeader - The authorization header containing the token.
+   * @returns {Promise<Object>} The decoded user identity object.
+   */
   async decodeToken(unverifiedAuthHeader) {
     return await this.authRepository.decodeToken(unverifiedAuthHeader);
   }
-
 }
 
 module.exports = AuthService;
+

@@ -1,0 +1,781 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <article>
+            <h1>TPortal</h1>
+            <p>A finance manager's best friend</p>
+            <h2>Overview</h2>
+            <p>This application is built using Node.js and Express.js, with a structured
+              architecture that includes authentication, ticket management, and user
+              management. It ensures secure access control with authentication and
+              authorization middleware.</p>
+            <p>Demo Video: <a href="https://youtu.be/lyqFVm-O3PY">TPortal V1.0.0</a></p>
+            <h2>Features</h2>
+            <ul>
+              <li>User Authentication (Login/Signup)</li>
+              <li>Role-based Authorization (Employee, Manager)</li>
+              <li>Ticket Management System</li>
+              <li>User Management for Admins</li>
+              <li>Logging Middleware for Requests and Responses</li>
+            </ul>
+            <h2>Installation</h2>
+            <h3>Prerequisites</h3>
+            <p>Ensure you have the following installed:</p>
+            <ul>
+              <li>Node.js (v20+ required)</li>
+              <li>npm or yarn</li>
+            </ul>
+            <h1>Setup</h1>
+            <h2>Clone the repository</h2>
+            <pre class="prettyprint source lang-bash"><code>git clone https://github.com/CTF179/TPortal.git
+cd Tportal
+
+</code></pre>
+            <h2>Create Environment Variables</h2>
+            <pre class="prettyprint source lang-bash"><code>touch .env
+</code></pre>
+            <p>Please fill in the following values.</p>
+            <pre class="prettyprint source lang-bash"><code>PORT=3000 #&lt;Your-Port>
+HOST=127.0.0.1 #&lt;Your-Host-address>
+SECRET=1234567890 #&lt;Your-super-secret-key>
+
+</code></pre>
+            <h2>Install dependencies</h2>
+            <pre class="prettyprint source lang-powershell"><code>    npm install
+</code></pre>
+            <h2>Start the application</h2>
+            <pre class="prettyprint source lang-powershell"><code>    npm start
+</code></pre>
+            <h1>API Routes</h1>
+            <h3>Authentication</h3>
+            <ul>
+              <li>POST <code>/login</code> - Authenticate users</li>
+              <li>POST <code>/register</code> - Register a new user</li>
+            </ul>
+            <h3>Ticket Management (Requires Authentication &amp; Authorization)</h3>
+            <ul>
+              <li>GET <code>/ticket</code> - Get all tickets (Roles: Employee, Manager)</li>
+              <li>GET <code>/ticket/:id</code> - Get a specific ticket (Roles: Employee, Manager)</li>
+              <li>POST <code>/ticket</code> - Create a ticket (Roles: Employee, Manager)</li>
+            </ul>
+            <h3>User Management (Requires Manager Role)</h3>
+            <ul>
+              <li>GET <code>/users</code> - Get all users</li>
+              <li>PUT <code>/users/:id</code> - Update a user</li>
+            </ul>
+            <h3>Middleware</h3>
+            <ul>
+              <li><code>authentication</code> - Validates user session</li>
+              <li><code>authorization(roles)</code> - Restricts access based on user role</li>
+              <li><code>requestMiddleware</code> - Logs request data</li>
+              <li><code>responseMiddleware</code> - Logs response data</li>
+            </ul>
+            <h3>Coverage reports</h3>
+            <ul>
+              <li><code>npm run coverage</code> - Runs Jest's coverage report</li>
+            </ul>
+            <h1>Contributing</h1>
+            <p>Contributions are welcome! Please submit a pull request or open an issue.</p>
+            <h1>License</h1>
+            <p>This project is licensed under the MIT License.</p>
+          </article>
+          <div class="symbol-index">
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="AuthController">AuthController</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthController.html" class="!symbol-index-name">AuthController(authService, userService)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="AuthController.html#initRoutes" class="!symbol-index-name">AuthController#<wbr>initRoutes()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthController.html#login" class="!symbol-index-name">AuthController#<wbr>login(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="AuthController.html#register" class="!symbol-index-name">AuthController#<wbr>register(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="AuthRepository">AuthRepository</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthRepository.html" class="!symbol-index-name">AuthRepository()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="AuthRepository.html#decodeToken" class="!symbol-index-name">AuthRepository#<wbr>decodeToken(AuthHeader)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthRepository.html#generateToken" class="!symbol-index-name">AuthRepository#<wbr>generateToken(UserObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="AuthRepository.html#hashPassword" class="!symbol-index-name">AuthRepository#<wbr>hashPassword(userObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthRepository.html#verify" class="!symbol-index-name">AuthRepository#<wbr>verify(hashedPass, signInText)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="AuthService">AuthService</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthService.html" class="!symbol-index-name">AuthService(authRepository)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="AuthService.html#decodeToken" class="!symbol-index-name">AuthService#<wbr>decodeToken(unverifiedAuthHeader)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthService.html#generateToken" class="!symbol-index-name">AuthService#<wbr>generateToken(UnverifiedUserObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="AuthService.html#hashPassword" class="!symbol-index-name">AuthService#<wbr>hashPassword(UnverifiedUserObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="AuthService.html#validatePassword" class="!symbol-index-name">AuthService#<wbr>validatePassword(dbUser, signInData)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="Ticket">Ticket</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="Ticket.html" class="!symbol-index-name">Ticket(options)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="TicketController">TicketController</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketController.html" class="!symbol-index-name">TicketController(ticketService)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketController.html#get" class="!symbol-index-name">TicketController#<wbr>get(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketController.html#getTicket" class="!symbol-index-name">TicketController#<wbr>getTicket(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketController.html#initRoutes" class="!symbol-index-name">TicketController#<wbr>initRoutes()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketController.html#postTicket" class="!symbol-index-name">TicketController#<wbr>postTicket(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketController.html#putTicket" class="!symbol-index-name">TicketController#<wbr>putTicket(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="TicketRepository">TicketRepository</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketRepository.html" class="!symbol-index-name">TicketRepository()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketRepository.html#create" class="!symbol-index-name">TicketRepository#<wbr>create(ticketObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketRepository.html#delete" class="!symbol-index-name">TicketRepository#<wbr>delete(lookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketRepository.html#get" class="!symbol-index-name">TicketRepository#<wbr>get(lookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketRepository.html#read" class="!symbol-index-name">TicketRepository#<wbr>read([lookupObject])</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketRepository.html#update" class="!symbol-index-name">TicketRepository#<wbr>update(lookupObject, updateObjects)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="TicketService">TicketService</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketService.html" class="!symbol-index-name">TicketService(ticketRepository)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketService.html#create" class="!symbol-index-name">TicketService#<wbr>create(unverifiedTicketObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketService.html#delete" class="!symbol-index-name">TicketService#<wbr>delete(unverifiedLookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketService.html#get" class="!symbol-index-name">TicketService#<wbr>get(unverifiedLookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="TicketService.html#read" class="!symbol-index-name">TicketService#<wbr>read(unverifiedLookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="TicketService.html#update" class="!symbol-index-name">TicketService#<wbr>update(unverifiedLookupObject, unverifiedUpdateObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="User">User</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="User.html" class="!symbol-index-name">User(param0)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="UserController">UserController</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserController.html" class="!symbol-index-name">UserController(userService)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserController.html#deleteUser" class="!symbol-index-name">UserController#<wbr>deleteUser(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserController.html#get" class="!symbol-index-name">UserController#<wbr>get(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserController.html#getUser" class="!symbol-index-name">UserController#<wbr>getUser(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserController.html#initRoutes" class="!symbol-index-name">UserController#<wbr>initRoutes()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserController.html#postUser" class="!symbol-index-name">UserController#<wbr>postUser(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserController.html#putUser" class="!symbol-index-name">UserController#<wbr>putUser(req, res)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="UserRepository">UserRepository</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserRepository.html" class="!symbol-index-name">UserRepository()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserRepository.html#create" class="!symbol-index-name">UserRepository#<wbr>create(userObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserRepository.html#delete" class="!symbol-index-name">UserRepository#<wbr>delete(lookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserRepository.html#get" class="!symbol-index-name">UserRepository#<wbr>get(lookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserRepository.html#read" class="!symbol-index-name">UserRepository#<wbr>read()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserRepository.html#update" class="!symbol-index-name">UserRepository#<wbr>update(lookupObject, updateObjects)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="UserService">UserService</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserService.html" class="!symbol-index-name">UserService()</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserService.html#create" class="!symbol-index-name">UserService#<wbr>create(unverifiedUserObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserService.html#delete" class="!symbol-index-name">UserService#<wbr>delete(unverifiedLookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserService.html#get" class="!symbol-index-name">UserService#<wbr>get(unverifiedLookupObject)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="UserService.html#read" class="!symbol-index-name">UserService#<wbr>read([unverifiedLookupObject])</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="UserService.html#update" class="!symbol-index-name">UserService#<wbr>update(unverifiedLookupObject, unverifiedUpdateObjects)</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="Dependencies">Dependencies</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="module-Dependencies.html" class="!symbol-index-name">Dependencies</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="module-Dependencies.html#~authRepository" class="!symbol-index-name">Dependencies~<wbr>authRepository</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="module-Dependencies.html#~authService" class="!symbol-index-name">Dependencies~<wbr>authService</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="module-Dependencies.html#~ticketRepository" class="!symbol-index-name">Dependencies~<wbr>ticketRepository</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="module-Dependencies.html#~ticketService" class="!symbol-index-name">Dependencies~<wbr>ticketService</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                        <a href="module-Dependencies.html#~userRepository" class="!symbol-index-name">Dependencies~<wbr>userRepository</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="module-Dependencies.html#~userService" class="!symbol-index-name">Dependencies~<wbr>userService</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="app">app</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="module-app.html" class="!symbol-index-name">app</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="controllers">controllers</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="module-controllers.html" class="!symbol-index-name">controllers</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="middleware">middleware</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="module-middleware.html" class="!symbol-index-name">middleware</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="{Object}">{Object}</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="module-%257BObject%257D.html" class="!symbol-index-name">{Object}</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="process">process</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="process.html#event:uncaughtException" class="!symbol-index-name">process#<wbr>event:uncaughtException</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                        <a href="process.html#event:unhandledRejection" class="!symbol-index-name">process#<wbr>event:unhandledRejection</a>
+                      </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

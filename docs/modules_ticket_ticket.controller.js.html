@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Source: modules/ticket/ticket.controller.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: modules/ticket/ticket.controller.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const { logger } &#x3D; require(&quot;../../utils/logging.js&quot;);
+/**
+ * TicketController handles ticket-related operations.
+ */
+const express &#x3D; require(&quot;express&quot;);
+
+class TicketController {
+  /**
+   * @param {Object} ticketService - Service for ticket operations.
+   */
+  constructor(ticketService) {
+    this.ticketService &#x3D; ticketService;
+    this.router &#x3D; express.Router();
+    this.initRoutes();
+  }
+
+  /**
+   * Initialize ticket-related routes.
+   */
+  initRoutes() {
+    this.router.get(&quot;/&quot;, this.get.bind(this));
+    this.router.get(&quot;/:ticket_pkey&quot;, this.getTicket.bind(this));
+    this.router.post(&quot;/&quot;, this.postTicket.bind(this));
+    this.router.put(&quot;/:ticket_pkey&quot;, this.putTicket.bind(this));
+  }
+
+  /**
+   * Get all the current tickets, filtered by user.
+   * @param {Object} req - Express request object.
+   * @param {Object} res - Express response object.
+   */
+  async get(req, res) {
+    try {
+      let tickets;
+      const user &#x3D; req.user;
+      if (!user) {
+        return res.status(400).json({ message: &quot;Invalid body&quot; });
+      }
+
+      switch (user.role) {
+        case &quot;employee&quot;:
+          tickets &#x3D; await this.ticketService.read({ owner: user.pkey });
+          if (!tickets) {
+            return res.status(400).json({ message: &quot;Invalid Tickets&quot; });
+          }
+          return res.status(200).json({ message: &#x60;[${user.pkey}] got Tickets&#x60;, tickets: tickets });
+
+        case &quot;manager&quot;:
+          let statusQuery &#x3D; req.query.status || &#x27;pending&#x27;;
+          tickets &#x3D; await this.ticketService.read({ status: statusQuery });
+          if (!tickets) {
+            return res.status(400).json({ message: &quot;Invalid Tickets&quot; });
+          }
+          return res.status(200).json({ message: &#x60;[${user.pkey}] got Tickets&#x60;, tickets: tickets });
+
+        default:
+          return res.status(401).json({ message: &quot;Unauthorized&quot; });
+      }
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Read request failure&quot; });
+    }
+  }
+
+  /**
+   * Get a specific ticket.
+   * @param {Object} req - Express request object.
+   * @param {Object} res - Express response object.
+   */
+  async getTicket(req, res) {
+    try {
+      const user &#x3D; req.user;
+      if (!user) {
+        return res.status(400).json({ message: &quot;No user found&quot; });
+      }
+      const ticket_pkey &#x3D; req.params?.ticket_pkey;
+      if (!ticket_pkey) {
+        return res.status(400).json({ message: &quot;Invalid Ticket Key&quot; });
+      }
+      const ticket &#x3D; await this.ticketService.get({ pkey: ticket_pkey });
+      if (!ticket) {
+        return res.status(404).json({ message: &quot;No ticket found&quot; });
+      }
+      if (user.role &#x3D;&#x3D;&#x3D; &quot;manager&quot; || ticket.owner &#x3D;&#x3D;&#x3D; user.pkey) {
+        return res.status(200).json({ message: &#x60;[${user.pkey}] got Ticket&#x60;, ticket: ticket });
+      }
+      return res.status(401).json({ message: &quot;Unauthorized&quot; });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Ticket request failure&quot; });
+    }
+  }
+
+  /**
+   * Update a ticket. Only managers can update tickets.
+   * @param {Object} req - Express request object.
+   * @param {Object} res - Express response object.
+   */
+  async putTicket(req, res) {
+    try {
+      const user &#x3D; req.user;
+      if (!user) {
+        return res.status(400).json({ message: &quot;Invalid User Object&quot; });
+      }
+      const ticket_pkey &#x3D; req.params?.ticket_pkey;
+      if (!ticket_pkey) {
+        return res.status(400).json({ message: &quot;Invalid Ticket&quot; });
+      }
+      if (user.role &#x3D;&#x3D;&#x3D; &quot;manager&quot;) {
+        const payload &#x3D; req.body;
+        if (!payload) {
+          return res.status(400).json({ message: &quot;Invalid Object&quot; });
+        }
+        const updateObjects &#x3D; payload.updateObjects;
+        if (!updateObjects || !(updateObjects instanceof Object)) {
+          return res.status(400).json({ message: &quot;Invalid Updates&quot; });
+        }
+        updateObjects.push({ property: &quot;processor&quot;, value: user.pkey });
+        const updatedTicket &#x3D; await this.ticketService.update({ pkey: ticket_pkey }, updateObjects);
+        if (!updatedTicket) {
+          return res.status(422).json({ message: &quot;Ticket Error&quot; });
+        }
+        return res.status(200).json({ message: &#x60;Ticket:[${updatedTicket.pkey}]; Processed by manager:[${user.pkey}]&#x60; });
+      }
+      return res.status(401).json({ message: &quot;Unauthorized&quot; });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Update request failure&quot; });
+    }
+  }
+
+  /**
+   * Create a ticket.
+   * @param {Object} req - Express request object.
+   * @param {Object} res - Express response object.
+   */
+  async postTicket(req, res) {
+    try {
+      const data &#x3D; req.body;
+      if (!data) {
+        return res.status(400).json({ message: &quot;Invalid Object&quot; });
+      }
+      const createdTicket &#x3D; await this.ticketService.create({ ...data, owner: req.user.pkey });
+      if (!createdTicket) {
+        return res.status(400).json({ message: &quot;Invalid Creation&quot; });
+      }
+      return res.status(200).json({ message: &#x60;[${req.user.pkey}] created Ticket&#x60;, pkey: createdTicket.pkey });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Creation request failure&quot; });
+    }
+  }
+}
+
+module.exports &#x3D; TicketController;
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

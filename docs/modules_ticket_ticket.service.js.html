@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Source: modules/ticket/ticket.service.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: modules/ticket/ticket.service.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const { isValidUUID, isValidStatus, isValidDescription, isValidAmount, isValidTicketUpdate } &#x3D; require(&quot;../../utils/validator.js&quot;);
+
+/**
+ * Service class for managing ticket-related operations.
+ */
+class TicketService {
+  /**
+   * Creates a TicketService instance.
+   * @param {Object} ticketRepository - The repository instance for ticket operations.
+   */
+  constructor(ticketRepository) {
+    this.ticketRepository &#x3D; ticketRepository;
+  }
+
+  /**
+   * Verifies the input ticket lookup is valid and retrieves the ticket.
+   * @param {Object} unverifiedLookupObject - The object to lookup the ticket.
+   * @param {string} unverifiedLookupObject.pkey - The unique identifier of the ticket.
+   * @returns {Promise&amp;lt;Ticket | undefined&gt;} A promise that resolves to a ticket or undefined if invalid.
+   */
+  async get(unverifiedLookupObject) {
+    if (!unverifiedLookupObject?.pkey || !isValidUUID(unverifiedLookupObject.pkey)) {
+      return undefined;
+    }
+    return await this.ticketRepository.get(unverifiedLookupObject);
+  };
+
+  /**
+   * Verifies the input ticket lookup is valid and retrieves a list of tickets.
+   * @param {Object} unverifiedLookupObject - The object to lookup tickets.
+   * @param {string} [unverifiedLookupObject.owner] - The owner’s unique identifier.
+   * @param {string} [unverifiedLookupObject.status] - The status of the ticket.
+   * @returns {Promise&amp;lt;Array&amp;lt;Ticket&gt; | undefined&gt;} A promise that resolves to an array of tickets or undefined if invalid.
+   */
+  async read(unverifiedLookupObject) {
+    if (!(unverifiedLookupObject?.owner || unverifiedLookupObject?.status)) {
+      return undefined;
+    }
+
+    if (unverifiedLookupObject?.owner &amp;amp;&amp;amp; !isValidUUID(unverifiedLookupObject.owner)) {
+      return undefined;
+    }
+
+    if (unverifiedLookupObject?.status &amp;amp;&amp;amp; !isValidStatus(unverifiedLookupObject.status)) {
+      return undefined;
+    }
+
+    return await this.ticketRepository.read(unverifiedLookupObject);
+  };
+
+  /**
+   * Verifies the input ticket object is valid and creates a ticket.
+   * @param {Object} unverifiedTicketObject - The ticket object to be created.
+   * @param {string} unverifiedTicketObject.owner - The owner’s unique identifier.
+   * @param {string} unverifiedTicketObject.description - The description of the ticket.
+   * @param {number} unverifiedTicketObject.amount - The amount associated with the ticket.
+   * @returns {Promise&amp;lt;Ticket | undefined&gt;} A promise that resolves to the created ticket or undefined if invalid.
+   */
+  async create(unverifiedTicketObject) {
+    if (!unverifiedTicketObject?.owner || !isValidUUID(unverifiedTicketObject.owner)) {
+      return undefined;
+    }
+
+    if (!unverifiedTicketObject?.description || !isValidDescription(unverifiedTicketObject.description)) {
+      return undefined;
+    }
+
+    if (!unverifiedTicketObject?.amount || !isValidAmount(unverifiedTicketObject.amount)) {
+      return undefined;
+    }
+
+    return await this.ticketRepository.create(unverifiedTicketObject);
+  };
+
+  /**
+   * Verifies the input for updating a ticket and updates it.
+   * @param {Object} unverifiedLookupObject - The object to lookup the ticket.
+   * @param {string} unverifiedLookupObject.pkey - The unique identifier of the ticket.
+   * @param {Array&amp;lt;Object&gt;} unverifiedUpdateObject - The list of properties and their new values to update.
+   * @returns {Promise&amp;lt;Ticket | undefined&gt;} A promise that resolves to the updated ticket or undefined if invalid.
+   */
+  async update(unverifiedLookupObject, unverifiedUpdateObject) {
+    if (!unverifiedLookupObject?.pkey || !isValidUUID(unverifiedLookupObject.pkey)) {
+      return undefined;
+    }
+
+    if (!isValidTicketUpdate(unverifiedUpdateObject)) {
+      return undefined;
+    }
+
+    const ticket &#x3D; await this.ticketRepository.get({ pkey: unverifiedLookupObject.pkey });
+    if (!ticket || ticket.processor !&#x3D; null) {
+      return undefined;
+    }
+    return await this.ticketRepository.update(unverifiedLookupObject, unverifiedUpdateObject);
+  };
+
+  /**
+   * Not currently supported.
+   * @param {Object} unverifiedLookupObject - The object to lookup the ticket to delete.
+   * @returns {Promise&amp;lt;undefined&gt;} Always returns undefined.
+   */
+  async delete(unverifiedLookupObject) {
+    // return await this.ticketRepository.delete(unverifiedLookupObject);
+    return undefined;
+  };
+}
+
+module.exports &#x3D; TicketService;
+
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

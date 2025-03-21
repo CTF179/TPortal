@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Source: modules/auth/auth.controller.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: modules/auth/auth.controller.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const { logger } &#x3D; require(&quot;../../utils/logging.js&quot;)
+const express &#x3D; require(&quot;express&quot;);
+
+/**
+ * Controller for handling authentication-related requests.
+ */
+class AuthController {
+  /**
+   * Initializes the authentication controller.
+   * @param {Object} authService - Service for handling authentication logic.
+   * @param {Object} userService - Service for handling user-related operations.
+   */
+  constructor(authService, userService) {
+    this.authService &#x3D; authService;
+    this.userService &#x3D; userService;
+    this.router &#x3D; express.Router();
+    this.initRoutes();
+  }
+
+  /**
+   * Initializes authentication-related routes.
+   */
+  initRoutes() {
+    this.router.post(&quot;/register&quot;, this.register.bind(this));
+    this.router.post(&quot;/login&quot;, this.login.bind(this));
+  }
+
+  /**
+   * Handles user registration.
+   * @param {Object} req - Express request object containing user registration data.
+   * @param {Object} res - Express response object.
+   * @returns {Object} JSON response indicating success or failure.
+   */
+  async register(req, res) {
+    try {
+      let data &#x3D; req.body;
+      if (Object.keys(data).length &#x3D;&#x3D;&#x3D; 0) {
+        return res.status(400).json({ message: &quot;Invalid Body&quot; });
+      }
+
+      data &#x3D; await this.authService.hashPassword(data);
+      if (!data) {
+        return res.status(400).json({ message: &quot;Invalid Password&quot; });
+      }
+
+      const createdUser &#x3D; await this.userService.create(data);
+      if (!createdUser) {
+        return res.status(400).json({ message: &quot;Invalid User&quot; });
+      }
+
+      const loginToken &#x3D; await this.authService.generateToken(createdUser);
+      if (!loginToken) {
+        return res.status(400).json({ message: &quot;Invalid Token&quot; });
+      }
+
+      return res.status(201).json({
+        message: &quot;Successful account creation&quot;,
+        user: { username: createdUser.username, role: createdUser.role },
+        token: loginToken
+      });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Registration Error&quot; });
+    }
+  }
+
+  /**
+   * Handles user login.
+   * @param {Object} req - Express request object containing user login credentials.
+   * @param {Object} res - Express response object.
+   * @returns {Object} JSON response indicating success or failure.
+   */
+  async login(req, res) {
+    try {
+      const userObject &#x3D; req.body;
+      if (Object.keys(userObject).length &#x3D;&#x3D;&#x3D; 0) {
+        return res.status(400).json({ message: &quot;Invalid Object&quot; });
+      }
+
+      const user &#x3D; await this.userService.get(userObject);
+      if (!user) {
+        return res.status(400).json({ message: &quot;Invalid User&quot; });
+      }
+
+      const isCorrectPassword &#x3D; await this.authService.validatePassword(user, userObject);
+      if (!isCorrectPassword) {
+        return res.status(401).json({ message: &quot;Invalid Signin&quot; });
+      }
+
+      const loginToken &#x3D; await this.authService.generateToken(user);
+      if (!loginToken) {
+        return res.status(400).json({ message: &quot;Invalid Token&quot; });
+      }
+
+      return res.status(200).json({
+        message: &quot;Successful sign in&quot;,
+        user: { username: user.username, role: user.role },
+        token: loginToken
+      });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ message: &quot;Login Error&quot; });
+    }
+  }
+}
+
+module.exports &#x3D; AuthController;
+
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

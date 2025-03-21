@@ -2,11 +2,14 @@ const { validate: isUUID } = require("uuid");
 const { TicketTypes } = require("../modules/ticket/ticket.model.js");
 const { UserTypes } = require("../modules/user/user.model.js");
 
-/*
-  * Check is uuid is a valid uuid
-  * @param <string> uuid 
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if a UUID is valid.
+ *
+ * This function checks if the provided UUID is a valid string and conforms to UUID format.
+ *
+ * @param {string} uuid - The UUID string to be validated.
+ * @returns {boolean} - Returns true if the UUID is valid, otherwise false.
+ */
 function isValidUUID(uuid) {
   let isValid = true;
   isValid &&= (typeof uuid == "string");
@@ -14,21 +17,27 @@ function isValidUUID(uuid) {
   return isValid;
 }
 
-/*
-  * Check if status is valid 
-  * @param <string> status
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the provided status is valid.
+ *
+ * This function checks if the given status is one of the predefined valid statuses for a ticket.
+ *
+ * @param {string} status - The status string to be validated.
+ * @returns {boolean} - Returns true if the status is valid, otherwise false.
+ */
 function isValidStatus(status) {
   const statuses = ["pending", "approved", "denied", "all"];
   return statuses.includes(status);
 }
 
-/*
-  * Check if description is valid 
-  * @param <string> description
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the description is valid.
+ *
+ * This function checks if the provided description is a valid string and matches the expected type for ticket descriptions.
+ *
+ * @param {string} description - The description string to be validated.
+ * @returns {boolean} - Returns true if the description is valid, otherwise false.
+ */
 function isValidDescription(description) {
   let isValid = true;
   isValid &&= (description != "");
@@ -36,12 +45,14 @@ function isValidDescription(description) {
   return isValid;
 }
 
-
-/*
-  * Check if amount is valid
-  * @param <Number> amount
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the amount is valid.
+ *
+ * This function checks if the provided amount is a positive number and matches the expected type for ticket amounts.
+ *
+ * @param {number} amount - The amount to be validated.
+ * @returns {boolean} - Returns true if the amount is valid, otherwise false.
+ */
 function isValidAmount(amount) {
   let isValid = true;
   isValid &&= (amount > 0);
@@ -49,11 +60,14 @@ function isValidAmount(amount) {
   return isValid;
 }
 
-/*
-  * Check if update object is valid
-  * @param <{}> updateObject
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the ticket update object is valid.
+ *
+ * This function checks if the properties of the ticket update object are valid, ensuring each property and value conform to expected types and rules.
+ *
+ * @param {Array<{property: string, value: any}>} updateObjects - The array of ticket updates to be validated.
+ * @returns {boolean} - Returns true if the update object is valid, otherwise false.
+ */
 function isValidTicketUpdate(updateObjects) {
   let isValid = true;
   for (const update of updateObjects) {
@@ -88,11 +102,14 @@ function isValidTicketUpdate(updateObjects) {
   return !!isValid;
 }
 
-/*
-  * Check if username is valid
-  * @param <string> username
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the username is valid.
+ *
+ * This function checks if the provided username is a valid string and does not contain special characters.
+ *
+ * @param {string} username - The username string to be validated.
+ * @returns {boolean} - Returns true if the username is valid, otherwise false.
+ */
 function isValidUsername(username) {
   const specialChars = /[ `!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?~]/;
 
@@ -103,11 +120,14 @@ function isValidUsername(username) {
   return isValid;
 }
 
-/*
-  * Check if password is valid
-  * @param <string> password
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the password is valid.
+ *
+ * This function checks if the provided password is a non-empty string.
+ *
+ * @param {string} password - The password string to be validated.
+ * @returns {boolean} - Returns true if the password is valid, otherwise false.
+ */
 function isValidPassword(password) {
 
   let isValid = true;
@@ -116,21 +136,27 @@ function isValidPassword(password) {
   return isValid;
 }
 
-/*
-  * Check if role is valid
-  * @param <string> role 
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the role is valid.
+ *
+ * This function checks if the provided role is one of the valid roles defined for the user.
+ *
+ * @param {string} role - The role string to be validated.
+ * @returns {boolean} - Returns true if the role is valid, otherwise false.
+ */
 function isValidRole(role) {
   const statuses = ["employee", "manager"];
   return statuses.includes(role);
 }
 
-/*
-  * Check if user update is valid
-  * @param <[]{property: string, value: typeof User.Property}> username
-  * @returns <boolean> isValid
-  * */
+/**
+ * Check if the user update object is valid.
+ *
+ * This function checks if the properties of the user update object are valid, ensuring each property and value conform to expected types and rules.
+ *
+ * @param {Array<{property: string, value: any}>} updateObjects - The array of user updates to be validated.
+ * @returns {boolean} - Returns true if the update object is valid, otherwise false.
+ */
 function isValidUserUpdate(updateObjects) {
   let isValid = true;
   for (const update of updateObjects) {
@@ -173,4 +199,5 @@ module.exports = {
   isValidPassword,
   isValidRole,
   isValidUserUpdate,
-}
+};
+

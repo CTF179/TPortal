@@ -1,0 +1,1077 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Globals</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <h1>Globals</h1>
+          <section id="summary">
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Properties</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#client">client</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#dbConnector">dbConnector</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#express">express</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#logger">logger</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#server">server</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Methods</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#authentication">authentication(req, res, next)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#authorization">authorization(roles)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#clearLoggerDuringTest">clearLoggerDuringTest()</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#isValidAmount">isValidAmount(amount)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#isValidDescription">isValidDescription(description)</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#isValidPassword">isValidPassword(password)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#isValidRole">isValidRole(role)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#isValidStatus">isValidStatus(status)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#isValidTicketUpdate">isValidTicketUpdate(updateObjects)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#isValidUUID">isValidUUID(uuid)</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#isValidUserUpdate">isValidUserUpdate(updateObjects)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#isValidUsername">isValidUsername(username)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#requestMiddleware">requestMiddleware(req, res, next)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="global.html#responseMiddleware">responseMiddleware(req, res, next)</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Abstract types</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#TicketTypes">TicketTypes</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="global.html#UserTypes">UserTypes</a></dt>
+                    <dd>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2>Properties</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-constant">constant</span></div>
+              <h3 id="client"><span class="symbol-name">client</span><small class="property-type">
+                  &nbsp;DynamoDBClient</small></h3>
+              <p>DynamoDB Client Configuration
+                Creates a DynamoDB client instance for connecting to AWS DynamoDB.</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-constant">constant</span></div>
+              <h3 id="dbConnector"><span class="symbol-name">dbConnector</span><small class="property-type">
+                  &nbsp;DynamoDBDocumentClient</small></h3>
+              <p>DynamoDB Document Client
+                A wrapper for easier working with DynamoDB documents, providing high-level APIs for document interactions.</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-constant">constant</span></div>
+              <h3 id="express"><span class="symbol-name">express</span></h3>
+              <p>TicketController handles ticket-related operations.</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-constant">constant</span></div>
+              <h3 id="logger"><span class="symbol-name">logger</span><small class="property-type">
+                  &nbsp;Logger</small></h3>
+              <p>Utility Logger for Winston</p>
+              <p>Initializes a logger using the Winston logging library, which logs messages to both the console and a file.
+                The logger uses a custom format that includes a timestamp and the log level.</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-constant">constant</span></div>
+              <h3 id="server"><span class="symbol-name">server</span></h3>
+              <p>Start the server and listen for incoming requests.</p>
+              <p>This starts the server on the specified port and host. The server address and port are logged
+                once the server has started.</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>PORT</p>
+                      </td>
+                      <td>
+                        <p>number</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The port on which the server will listen.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>HOST</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The host address for the server.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>Server</code> The server instance.</p>
+                </dd>
+              </dl>
+            </section>
+            <h2>Methods</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-async">async</span></div>
+              <h3 id="authentication"><span class="symbol-name">authentication</span><span class="signature"><span class="signature-params">(req, res, next)</span>&nbsp;&rarr; <span class="signature-returns"> (Object or void)</span></span></h3>
+              <p>Middleware for authenticating user requests.</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>req</p>
+                      </td>
+                      <td>
+                        <p>Object</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The HTTP request object.</p>
+                        <p>Values in <code>req</code> have the following properties:</p>
+                        <table class="jsdoc-details-table">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Type</th>
+                              <th>Optional</th>
+                              <th>Description</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <p>headers</p>
+                              </td>
+                              <td>
+                                <p>Object</p>
+                              </td>
+                              <td>
+                                <p>&nbsp;</p>
+                              </td>
+                              <td>
+                                <p>The request headers.</p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <p>headers.authorization</p>
+                              </td>
+                              <td>
+                                <p>string</p>
+                              </td>
+                              <td>
+                                <p>&nbsp;</p>
+                              </td>
+                              <td>
+                                <p>The authorization token.</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>res</p>
+                      </td>
+                      <td>
+                        <p>Object</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The HTTP response object.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>next</p>
+                      </td>
+                      <td>
+                        <p>function()</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The next middleware function.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>(Object or void)</code> Returns an error response if authentication fails, otherwise calls next().</p>
+                </dd>
+              </dl>
+              <h3 id="authorization"><span class="symbol-name">authorization</span><span class="signature"><span class="signature-params">(roles)</span>&nbsp;&rarr; <span class="signature-returns"> function()</span></span></h3>
+              <p>Middleware for Authorization.</p>
+              <p>Allows only specified roles to access certain routes.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>roles</p>
+                      </td>
+                      <td>
+                        <p>Array of string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>An array of allowed user roles.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>function()</code> Express middleware function.</p>
+                </dd>
+              </dl>
+              <h3 id="clearLoggerDuringTest"><span class="symbol-name">clearLoggerDuringTest</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> void</span></span></h3>
+              <p>Disables Winston logging during Jest testing</p>
+              <p>If the application is running in a test environment (i.e., <code>NODE_ENV</code> is set to 'test'), the Winston logger is cleared
+                to prevent unnecessary log output during tests.</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>void</code> </p>
+                </dd>
+              </dl>
+              <h3 id="isValidAmount"><span class="symbol-name">isValidAmount</span><span class="signature"><span class="signature-params">(amount)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the amount is valid.</p>
+              <p>This function checks if the provided amount is a positive number and matches the expected type for ticket amounts.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>amount</p>
+                      </td>
+                      <td>
+                        <p>number</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The amount to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the amount is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidDescription"><span class="symbol-name">isValidDescription</span><span class="signature"><span class="signature-params">(description)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the description is valid.</p>
+              <p>This function checks if the provided description is a valid string and matches the expected type for ticket descriptions.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>description</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The description string to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the description is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidPassword"><span class="symbol-name">isValidPassword</span><span class="signature"><span class="signature-params">(password)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the password is valid.</p>
+              <p>This function checks if the provided password is a non-empty string.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>password</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The password string to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the password is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidRole"><span class="symbol-name">isValidRole</span><span class="signature"><span class="signature-params">(role)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the role is valid.</p>
+              <p>This function checks if the provided role is one of the valid roles defined for the user.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>role</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The role string to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the role is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidStatus"><span class="symbol-name">isValidStatus</span><span class="signature"><span class="signature-params">(status)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the provided status is valid.</p>
+              <p>This function checks if the given status is one of the predefined valid statuses for a ticket.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>status</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The status string to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the status is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidTicketUpdate"><span class="symbol-name">isValidTicketUpdate</span><span class="signature"><span class="signature-params">(updateObjects)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the ticket update object is valid.</p>
+              <p>This function checks if the properties of the ticket update object are valid, ensuring each property and value conform to expected types and rules.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>updateObjects</p>
+                      </td>
+                      <td>
+                        <p>Array of {property: string, value: any}</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The array of ticket updates to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the update object is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidUUID"><span class="symbol-name">isValidUUID</span><span class="signature"><span class="signature-params">(uuid)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if a UUID is valid.</p>
+              <p>This function checks if the provided UUID is a valid string and conforms to UUID format.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>uuid</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The UUID string to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the UUID is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidUserUpdate"><span class="symbol-name">isValidUserUpdate</span><span class="signature"><span class="signature-params">(updateObjects)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the user update object is valid.</p>
+              <p>This function checks if the properties of the user update object are valid, ensuring each property and value conform to expected types and rules.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>updateObjects</p>
+                      </td>
+                      <td>
+                        <p>Array of {property: string, value: any}</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The array of user updates to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the update object is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="isValidUsername"><span class="symbol-name">isValidUsername</span><span class="signature"><span class="signature-params">(username)</span>&nbsp;&rarr; <span class="signature-returns"> boolean</span></span></h3>
+              <p>Check if the username is valid.</p>
+              <p>This function checks if the provided username is a valid string and does not contain special characters.</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>username</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The username string to be validated.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>boolean</code> - Returns true if the username is valid, otherwise false.</p>
+                </dd>
+              </dl>
+              <h3 id="requestMiddleware"><span class="symbol-name">requestMiddleware</span><span class="signature"><span class="signature-params">(req, res, next)</span>&nbsp;&rarr; <span class="signature-returns"> void</span></span></h3>
+              <p>Logger middleware for incoming requests</p>
+              <p>This middleware logs information about incoming HTTP requests, including the client's IP address, HTTP method, and URL.
+                It is used to log each incoming request before passing control to the next middleware.</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>req</p>
+                      </td>
+                      <td>
+                        <p>Request</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The incoming HTTP request object.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>res</p>
+                      </td>
+                      <td>
+                        <p>Response</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The outgoing HTTP response object.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>next</p>
+                      </td>
+                      <td>
+                        <p>function()</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The next middleware function in the stack.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>void</code> </p>
+                </dd>
+              </dl>
+              <h3 id="responseMiddleware"><span class="symbol-name">responseMiddleware</span><span class="signature"><span class="signature-params">(req, res, next)</span>&nbsp;&rarr; <span class="signature-returns"> void</span></span></h3>
+              <p>Logger middleware for outgoing responses</p>
+              <p>This middleware logs the response details, including the client's IP address, HTTP method, response status code, and any message
+                included in the response body. It modifies the <code>res.json</code> method to log this information before sending the response.</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>req</p>
+                      </td>
+                      <td>
+                        <p>Request</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The incoming HTTP request object.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>res</p>
+                      </td>
+                      <td>
+                        <p>Response</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The outgoing HTTP response object.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>next</p>
+                      </td>
+                      <td>
+                        <p>function()</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The next middleware function in the stack.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>void</code> </p>
+                </dd>
+              </dl>
+            </section>
+            <h2>Abstract types</h2>
+            <section>
+              <h3 id="TicketTypes"><span class="symbol-name">TicketTypes</span><small class="property-type">
+                  &nbsp;Object</small></h3>
+              <section>
+                <h4>Properties</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>pkey</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>Unique identifier for the ticket.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>status</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>Current status of the ticket.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>type</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>Type of the ticket (e.g., reimbursement).</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>processor</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>User processing the ticket.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>amount</p>
+                      </td>
+                      <td>
+                        <p>number</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>Amount associated with the ticket.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>description</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>Description of the ticket.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>owner</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>Owner of the ticket.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <h3 id="UserTypes"><span class="symbol-name">UserTypes</span><small class="property-type">
+                  &nbsp;Object</small></h3>
+              <p>Defines the structure of a User object, outlining the expected properties.</p>
+              <section>
+                <h4>Properties</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>pkey</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The unique identifier for the user (UUID).</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>role</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The role of the user (e.g., &quot;employee&quot;).</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>username</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The username of the user.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>password</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The password of the user.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

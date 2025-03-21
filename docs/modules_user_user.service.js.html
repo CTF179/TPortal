@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Source: modules/user/user.service.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: modules/user/user.service.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const { isValidUUID, isValidUsername, isValidPassword, isValidUserUpdate } &#x3D; require(&quot;../../utils/validator.js&quot;);
+
+/**
+ * Service class for handling user-related operations.
+ * @class UserService
+ */
+class UserService {
+  /**
+   * Creates an instance of the UserService.
+   * @param {Object} userRepository - The repository for interacting with user data.
+   */
+  constructor(userRepository) {
+    this.userRepository &#x3D; userRepository;
+  }
+
+  /**
+   * Retrieves a specific user by their &#x60;pkey&#x60; (UUID) or &#x60;username&#x60;.
+   * @param {Object} unverifiedLookupObject - The object containing the lookup criteria.
+   * @param {string} [unverifiedLookupObject.pkey] - The unique identifier for the user (UUID).
+   * @param {string} [unverifiedLookupObject.username] - The username of the user.
+   * @returns {Promise&amp;lt;User | undefined&gt;} The found user or &#x60;undefined&#x60; if invalid or not found.
+   */
+  async get(unverifiedLookupObject) {
+    if (!(unverifiedLookupObject?.pkey || unverifiedLookupObject?.username)) {
+      return undefined;
+    }
+    if (unverifiedLookupObject?.pkey &amp;amp;&amp;amp; !isValidUUID(unverifiedLookupObject.pkey)) {
+      return undefined;
+    }
+    if (unverifiedLookupObject?.username &amp;amp;&amp;amp; !isValidUsername(unverifiedLookupObject.username)) {
+      return undefined;
+    }
+    return await this.userRepository.get(unverifiedLookupObject);
+  }
+
+  /**
+   * Retrieves all users.
+   * @param {Object} [unverifiedLookupObject] - The optional object to filter users (not currently used).
+   * @returns {Promise&amp;lt;User[] | undefined&gt;} A list of users or &#x60;undefined&#x60; if invalid.
+   */
+  async read(unverifiedLookupObject) {
+    return await this.userRepository.read(unverifiedLookupObject);
+  }
+
+  /**
+   * Creates a new user.
+   * @param {Object} unverifiedUserObject - The user object to create.
+   * @param {string} unverifiedUserObject.username - The username of the new user.
+   * @param {string} unverifiedUserObject.password - The password of the new user.
+   * @returns {Promise&amp;lt;User | undefined&gt;} The created user or &#x60;undefined&#x60; if invalid.
+   */
+  async create(unverifiedUserObject) {
+    if (!unverifiedUserObject.username || !unverifiedUserObject.password) {
+      return undefined;
+    }
+    if (!isValidUsername(unverifiedUserObject.username)) {
+      return undefined;
+    }
+    if (!isValidPassword(unverifiedUserObject.password)) {
+      return undefined;
+    }
+    const user &#x3D; await this.userRepository.get(unverifiedUserObject);
+    if (user) {
+      return undefined;
+    }
+    return await this.userRepository.create(unverifiedUserObject);
+  }
+
+  /**
+   * Updates an existing user&#x27;s settings.
+   * @param {Object} unverifiedLookupObject - The lookup object to identify the user.
+   * @param {string} unverifiedLookupObject.pkey - The unique identifier of the user to update.
+   * @param {Array&amp;lt;Object&gt;} unverifiedUpdateObjects - The list of properties to update.
+   * @param {string} unverifiedUpdateObjects[].property - The property of the user to update.
+   * @param {string|number} unverifiedUpdateObjects[].value - The new value for the property.
+   * @returns {Promise&amp;lt;User | undefined&gt;} The updated user or &#x60;undefined&#x60; if invalid.
+   */
+  async update(unverifiedLookupObject, unverifiedUpdateObjects) {
+    if (!unverifiedLookupObject?.pkey || !isValidUUID(unverifiedLookupObject.pkey)) {
+      return undefined;
+    }
+    if (!isValidUserUpdate(unverifiedUpdateObjects)) {
+      return undefined;
+    }
+    const user &#x3D; await this.userRepository.get({ pkey: unverifiedLookupObject.pkey });
+    if (!user) {
+      return undefined;
+    }
+    return await this.userRepository.update(unverifiedLookupObject, unverifiedUpdateObjects);
+  }
+
+  /**
+   * Deletes a user (not currently supported).
+   * @param {Object} unverifiedLookupObject - The object containing the user lookup criteria.
+   * @param {string} unverifiedLookupObject.pkey - The unique identifier of the user to delete.
+   * @returns {Promise&amp;lt;User | undefined&gt;} &#x60;undefined&#x60; since delete is not supported.
+   */
+  async delete(unverifiedLookupObject) {
+    return undefined;
+  }
+}
+
+module.exports &#x3D; UserService;
+
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

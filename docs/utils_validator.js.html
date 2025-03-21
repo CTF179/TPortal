@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 4.0.4">
+  <meta charset="utf-8">
+  <title>Source: utils/validator.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: utils/validator.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const { validate: isUUID } &#x3D; require(&quot;uuid&quot;);
+const { TicketTypes } &#x3D; require(&quot;../modules/ticket/ticket.model.js&quot;);
+const { UserTypes } &#x3D; require(&quot;../modules/user/user.model.js&quot;);
+
+/**
+ * Check if a UUID is valid.
+ *
+ * This function checks if the provided UUID is a valid string and conforms to UUID format.
+ *
+ * @param {string} uuid - The UUID string to be validated.
+ * @returns {boolean} - Returns true if the UUID is valid, otherwise false.
+ */
+function isValidUUID(uuid) {
+  let isValid &#x3D; true;
+  isValid &amp;amp;&amp;amp;&#x3D; (typeof uuid &#x3D;&#x3D; &quot;string&quot;);
+  isValid &amp;amp;&amp;amp;&#x3D; isUUID(uuid);
+  return isValid;
+}
+
+/**
+ * Check if the provided status is valid.
+ *
+ * This function checks if the given status is one of the predefined valid statuses for a ticket.
+ *
+ * @param {string} status - The status string to be validated.
+ * @returns {boolean} - Returns true if the status is valid, otherwise false.
+ */
+function isValidStatus(status) {
+  const statuses &#x3D; [&quot;pending&quot;, &quot;approved&quot;, &quot;denied&quot;, &quot;all&quot;];
+  return statuses.includes(status);
+}
+
+/**
+ * Check if the description is valid.
+ *
+ * This function checks if the provided description is a valid string and matches the expected type for ticket descriptions.
+ *
+ * @param {string} description - The description string to be validated.
+ * @returns {boolean} - Returns true if the description is valid, otherwise false.
+ */
+function isValidDescription(description) {
+  let isValid &#x3D; true;
+  isValid &amp;amp;&amp;amp;&#x3D; (description !&#x3D; &quot;&quot;);
+  isValid &amp;amp;&amp;amp;&#x3D; (typeof description &#x3D;&#x3D; TicketTypes[&quot;description&quot;]);
+  return isValid;
+}
+
+/**
+ * Check if the amount is valid.
+ *
+ * This function checks if the provided amount is a positive number and matches the expected type for ticket amounts.
+ *
+ * @param {number} amount - The amount to be validated.
+ * @returns {boolean} - Returns true if the amount is valid, otherwise false.
+ */
+function isValidAmount(amount) {
+  let isValid &#x3D; true;
+  isValid &amp;amp;&amp;amp;&#x3D; (amount &gt; 0);
+  isValid &amp;amp;&amp;amp;&#x3D; (typeof amount &#x3D;&#x3D; TicketTypes[&quot;amount&quot;]);
+  return isValid;
+}
+
+/**
+ * Check if the ticket update object is valid.
+ *
+ * This function checks if the properties of the ticket update object are valid, ensuring each property and value conform to expected types and rules.
+ *
+ * @param {Array&amp;lt;{property: string, value: any}&gt;} updateObjects - The array of ticket updates to be validated.
+ * @returns {boolean} - Returns true if the update object is valid, otherwise false.
+ */
+function isValidTicketUpdate(updateObjects) {
+  let isValid &#x3D; true;
+  for (const update of updateObjects) {
+
+    isValid &amp;amp;&amp;amp;&#x3D; (TicketTypes[update?.property]);
+    if (!isValid) { break; }
+
+    isValid &amp;amp;&amp;amp;&#x3D; (typeof update?.value &#x3D;&#x3D; TicketTypes[update?.property]);
+    if (!isValid) { break; }
+
+    switch (update?.property) {
+      case &quot;pkey&quot;:
+      case &quot;processor&quot;:
+      case &quot;owner&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidUUID(update.value);
+        break;
+      case &quot;status&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidStatus(update.value);
+        break;
+      case &quot;amount&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidAmount(update.value);
+        break;
+      case &quot;description&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidDescription(update.value);
+        break;
+      default:
+        isValid &amp;amp;&amp;amp;&#x3D; false;
+        break;
+    }
+    if (!isValid) { break; }
+  }
+  return !!isValid;
+}
+
+/**
+ * Check if the username is valid.
+ *
+ * This function checks if the provided username is a valid string and does not contain special characters.
+ *
+ * @param {string} username - The username string to be validated.
+ * @returns {boolean} - Returns true if the username is valid, otherwise false.
+ */
+function isValidUsername(username) {
+  const specialChars &#x3D; /[ &#x60;!@#$%^&amp;amp;*()+\&#x3D;\[\]{};&#x27;:&quot;\\|,.&amp;lt;&gt;\/?~]/;
+
+  let isValid &#x3D; true;
+  isValid &amp;amp;&amp;amp;&#x3D; (username !&#x3D; &quot;&quot;);
+  isValid &amp;amp;&amp;amp;&#x3D; (typeof username &#x3D;&#x3D; &quot;string&quot;);
+  isValid &amp;amp;&amp;amp;&#x3D; (!specialChars.test(username));
+  return isValid;
+}
+
+/**
+ * Check if the password is valid.
+ *
+ * This function checks if the provided password is a non-empty string.
+ *
+ * @param {string} password - The password string to be validated.
+ * @returns {boolean} - Returns true if the password is valid, otherwise false.
+ */
+function isValidPassword(password) {
+
+  let isValid &#x3D; true;
+  isValid &amp;amp;&amp;amp;&#x3D; (password !&#x3D; &quot;&quot;);
+  isValid &amp;amp;&amp;amp;&#x3D; (typeof password &#x3D;&#x3D; &quot;string&quot;);
+  return isValid;
+}
+
+/**
+ * Check if the role is valid.
+ *
+ * This function checks if the provided role is one of the valid roles defined for the user.
+ *
+ * @param {string} role - The role string to be validated.
+ * @returns {boolean} - Returns true if the role is valid, otherwise false.
+ */
+function isValidRole(role) {
+  const statuses &#x3D; [&quot;employee&quot;, &quot;manager&quot;];
+  return statuses.includes(role);
+}
+
+/**
+ * Check if the user update object is valid.
+ *
+ * This function checks if the properties of the user update object are valid, ensuring each property and value conform to expected types and rules.
+ *
+ * @param {Array&amp;lt;{property: string, value: any}&gt;} updateObjects - The array of user updates to be validated.
+ * @returns {boolean} - Returns true if the update object is valid, otherwise false.
+ */
+function isValidUserUpdate(updateObjects) {
+  let isValid &#x3D; true;
+  for (const update of updateObjects) {
+
+    isValid &amp;amp;&amp;amp;&#x3D; (UserTypes[update?.property]);
+    if (!isValid) { break; }
+
+    isValid &amp;amp;&amp;amp;&#x3D; (typeof update?.value &#x3D;&#x3D; UserTypes[update?.property]);
+    if (!isValid) { break; }
+
+    switch (update?.property) {
+      case &quot;pkey&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidUUID(update.value);
+        break;
+      case &quot;role&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidRole(update.value);
+        break;
+      case &quot;username&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidUsername(update.value);
+        break;
+      case &quot;password&quot;:
+        isValid &amp;amp;&amp;amp;&#x3D; isValidPassword(update.value);
+        break;
+      default:
+        isValid &amp;amp;&amp;amp;&#x3D; false;
+        break;
+    }
+    if (!isValid) { break; }
+  }
+  return !!isValid;
+}
+
+module.exports &#x3D; {
+  isValidUUID,
+  isValidStatus,
+  isValidTicketUpdate,
+  isValidAmount,
+  isValidDescription,
+  isValidUsername,
+  isValidPassword,
+  isValidRole,
+  isValidUserUpdate,
+};
+
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 4.0.4 on March 20, 2025.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>
