@@ -10,7 +10,7 @@ const { logger } = require('./utils/logging.js');
  * @param {Error} err - The uncaught exception error object.
  */
 process.on('uncaughtException', err => {
-  logger.error("Uncaught Exception: ", err.name, " : ", err.message);
+  logger.error("Uncaught Exception: ", err);
   process.exit(1);
 });
 
@@ -43,8 +43,9 @@ const server = app.listen(PORT, HOST, () => {
  * @param {Error} err - The unhandled rejection error object.
  */
 process.on('unhandledRejection', err => {
-  logger.error("Unhandled Rejection: ", err.name, " : ", err.message);
+  logger.error("Unhandled Rejection: ", err);
   server.close(() => {
+    console.log(err);
     console.log("Gracefully shutting down");
     process.exit(0);
   });

@@ -1,3 +1,4 @@
+const { logger } = require("../../utils/logging.js");
 const { authService } = require("../../utils/dependencies.js");
 
 /**
